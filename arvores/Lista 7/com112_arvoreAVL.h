@@ -16,6 +16,7 @@ int quantidade_nos_arvore_binaria(ArvoreBin *raiz);
 int altura_arvore_binaria(ArvoreBin *raiz);
 int esta_vazia_arvore_binaria(ArvoreBin *raiz);
 int altura_sub_arvore(int valor,ArvoreBin *raiz);
+int fator_balanceamento(ArvoreBin *raiz, int valor);
 
 // função para inserção de elementos da arvore binaria
 int inserir_arvore_binaria(ArvoreBin *raiz, int valor);

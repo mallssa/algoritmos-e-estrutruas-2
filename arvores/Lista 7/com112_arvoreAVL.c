@@ -315,16 +315,16 @@ void percorrer_pos_ordem_arvore_binaria(ArvoreBin *raiz)
   }
 }
 
-int altura_sub_arvore_binaria(ArvoreBin *raiz)
+int altura_sub_arvore_binaria(No *raiz)
 {
-  if(raiz == NULL || *raiz == NULL)
+  if(raiz == NULL)
     return 0;
 
   // calcula a altura da subarvore esquerda
-  int alt_esq = altura_arvore_binaria(&((*raiz)->esq));
+  int alt_esq = altura_sub_arvore_binaria(raiz->esq);
 
   // calcula a altura da subarvore direita
-  int alt_dir = altura_arvore_binaria(&((*raiz)->dir));
+  int alt_dir = altura_sub_arvore_binaria(raiz->dir);
 
   // altura da arvore é a altura da maior subarvore mais a raiz 
   if(alt_esq > alt_dir) 
@@ -364,4 +364,39 @@ int consultar_sub_arvore_binaria(ArvoreBin *raiz, int valor)
 int altura_sub_arvore(int valor,ArvoreBin *raiz){
     //Chama a função para encontrar a raiz da sub árvore
     return consultar_sub_arvore_binaria(raiz,valor);
+}
+
+int balanceamento(No *raiz){
+    if(raiz == NULL)
+        return 0;
+
+    int bEsq = altura_sub_arvore_binaria(raiz->esq);
+    int bDir = altura_sub_arvore_binaria(raiz->dir);
+
+    return bEsq-bDir;
+}
+
+int fator_balanceamento(ArvoreBin *raiz,int valor){
+    if(raiz == NULL)
+    return 0;
+  
+  No *atual = *raiz;
+
+  // percorre a arvore binaria até encontrar o valor desejado   
+  while(atual != NULL){
+
+    // retorna a altura da sub árvore
+    if(valor == atual->valor){
+      return balanceamento(atual);
+    }
+
+    // identifica a subarvore pela qual irá percorrer
+    if(valor < atual->valor){
+      atual = atual->esq;
+    }else{
+      atual = atual->dir;
+    }
+  }
+
+  return 0;
 }
